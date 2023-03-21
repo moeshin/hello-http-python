@@ -4,6 +4,7 @@ import http.client
 import io
 import socket
 import socketserver
+import typing
 
 a_allowed_methods = None
 a_disallowed_methods = None
@@ -31,7 +32,7 @@ class Server(socketserver.TCPServer):
 
 class Handler(http.server.BaseHTTPRequestHandler):
 
-    def log_request(self, code: int | str = ..., size: int | str = ...) -> None:
+    def log_request(self, code: typing.Union[int, str] = ..., size: typing.Union[int, str] = ...) -> None:
         ...
 
     def __getattribute__(self, item: str):
@@ -68,17 +69,16 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-Length', str(len(out)))
         self.end_headers()
         self.wfile.write(out)
-        print(out)
 
 
-def get_address_string(address: tuple[str, int]):
+def get_address_string(address: typing.Tuple[str, int]):
     host, port, *_ = address
     if not host.startswith('[') and ':' in host:
         host = f'[{host}]'
     return f'{host}:{port}'
 
 
-def parse_methods(string: str | None):
+def parse_methods(string: typing.Optional[str]):
     if string is None:
         return None
     methods = set()

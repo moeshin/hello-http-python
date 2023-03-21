@@ -96,18 +96,16 @@ def main():
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
         '-h', dest='host', type=str, default='127.0.0.1',
-        help=
-        'Listen host. '
-        'If 0.0.0.0 will only listen all IPv4. '
-        'If [::] will only listen all IPv6. '
-        'If :: will listen all IPv4 and IPv6. '
-        '(default "127.0.0.1")')
+        help='Listen host. '
+             'If 0.0.0.0 will only listen all IPv4. '
+             'If [::] will only listen all IPv6. '
+             'If :: will listen all IPv4 and IPv6. '
+             '(default "127.0.0.1")')
     parser.add_argument(
         '-p', dest='port', type=int, default=8080,
-        help=
-        'Listen port. '
-        'If 0, random. '
-        '(default 8080)'
+        help='Listen port. '
+             'If 0, random. '
+             '(default 8080)'
     )
     parser.add_argument('-m', dest='allowed_methods', help='Allowed methods.')
     parser.add_argument('-d', dest='disallowed_methods', help='Disallowed methods.')

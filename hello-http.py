@@ -107,10 +107,15 @@ def main():
         '-p', dest='port', type=int, default=8080,
         help='Listen port. '
              'If 0, random. '
-             '(default 8080)'
-    )
-    parser.add_argument('-m', dest='allowed_methods', help='Allowed methods.')
-    parser.add_argument('-d', dest='disallowed_methods', help='Disallowed methods.')
+             '(default 8080)')
+    parser.add_argument(
+        '-m', dest='allowed_methods',
+        help='Allowed methods. '
+             '(format: <method>[,<methods>...])')
+    parser.add_argument(
+        '-d', dest='disallowed_methods',
+        help='Disallowed methods. '
+             '(format: <method>[,<methods>...])')
     parser.add_argument('--help', action='help', help='Print help.')
     args = parser.parse_args()
 

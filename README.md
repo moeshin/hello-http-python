@@ -60,3 +60,7 @@ Hello HTTP output
 ```text
 GET / HTTP/1.1
 ```
+
+## Notes
+
+* Chunked transfer not implemented.

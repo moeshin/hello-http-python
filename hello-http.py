@@ -111,11 +111,11 @@ def main():
     parser.add_argument(
         '-m', dest='allowed_methods',
         help='Allowed methods. '
-             '(format: <method>[,<methods>...])')
+             '(format: <method>[,<method>...])')
     parser.add_argument(
         '-d', dest='disallowed_methods',
         help='Disallowed methods. '
-             '(format: <method>[,<methods>...])')
+             '(format: <method>[,<method>...])')
     parser.add_argument('--help', action='help', help='Print help.')
     args = parser.parse_args()
 

@@ -18,10 +18,10 @@ optional arguments:
                         If 0, random.
                         (default 8080)
   -m ALLOWED_METHODS    Allowed methods.
-                        (format: <method>[,<methods>...])
+                        (format: <method>[,<method>...])
   -d DISALLOWED_METHODS
                         Disallowed methods.
-                        (format: <method>[,<methods>...])
+                        (format: <method>[,<method>...])
   --help                Print help.
 ```
 

@@ -75,7 +75,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(out)
         if logger.isEnabledFor(logging.DEBUG):
-            logger.debug('%s', out.decode())
+            logger.debug('%s\n', out.decode())
 
 
 def get_address_string(address: typing.Tuple[str, int]):

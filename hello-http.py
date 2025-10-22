@@ -2,11 +2,13 @@
 
 import argparse
 import http.server
-import http.client
 import io
 import socket
 import socketserver
 import typing
+import logging
+
+logger = logging.getLogger("hello-http")
 
 a_allowed_methods = None
 a_disallowed_methods = None
@@ -26,7 +28,7 @@ class Server(socketserver.TCPServer):
         try:
             self.server_bind()
             self.server_activate()
-            print('Listening', get_address_string(self.server_address))
+            logger.info('Listening %s', get_address_string(self.server_address))
         except Exception:
             self.server_close()
             raise
@@ -43,7 +45,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         return super().__getattribute__(item)
 
     def do_ALL(self):
-        print(self.requestline)
+        logger.info("%s", self.requestline)
 
         if (a_disallowed_methods is not None and self.command in a_disallowed_methods) \
                 or (a_allowed_methods is not None and self.command not in a_allowed_methods):
@@ -71,6 +73,8 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-Length', str(len(out)))
         self.end_headers()
         self.wfile.write(out)
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug('%s', out.decode())
 
 
 def get_address_string(address: typing.Tuple[str, int]):
@@ -95,6 +99,10 @@ def parse_methods(string: typing.Optional[str]):
 
 
 def main():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s:%(levelname)s:%(name)s:%(message)s"
+    )
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
         '-h', dest='host', type=str, default='127.0.0.1',
@@ -116,8 +124,12 @@ def main():
         '-d', dest='disallowed_methods',
         help='Disallowed methods. '
              '(format: <method>[,<method>...])')
+    parser.add_argument('-v', action='store_true', help='Enable verbose output.')
     parser.add_argument('--help', action='help', help='Print help.')
     args = parser.parse_args()
+
+    if args.v:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     global a_allowed_methods, a_disallowed_methods
     a_allowed_methods = parse_methods(args.allowed_methods)

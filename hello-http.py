@@ -46,6 +46,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def do_ALL(self):
         logger.info("%s", self.requestline)
+        logger.debug("addr: %s", self.client_address)
 
         if (a_disallowed_methods is not None and self.command in a_disallowed_methods) \
                 or (a_allowed_methods is not None and self.command not in a_allowed_methods):
